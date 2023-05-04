@@ -8,7 +8,7 @@ export class Feedback extends Component {
   };
 
   handleIncrement = evt => {
-    console.log(evt.target.dataset.action);
+    // console.log(evt.target.dataset.action);
 
     if (evt.target.dataset.action === 'good') {
       return this.setState(prevState => ({
@@ -27,10 +27,26 @@ export class Feedback extends Component {
     }));
   };
 
-  countTotalFeedback = () => {};
+  countTotalFeedback = () => {
+    let sum = 0;
+    Object.values(this.state).map(el => (sum += el));
+    return sum;
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    const valueGood = this.state.good;
+    const totalFeedback = this.countTotalFeedback();
+    let percentage = Math.round((valueGood / totalFeedback) * 100);
+
+    if (!totalFeedback) {
+      return (percentage = 0);
+    }
+
+    return percentage;
+  };
 
   render() {
-    console.log('Result: ', this.countTotalFeedback());
+    this.countPositiveFeedbackPercentage();
 
     return (
       <div>
@@ -52,8 +68,8 @@ export class Feedback extends Component {
         <p>Good: {this.state.good}</p>
         <p>Neutral: {this.state.neutral}</p>
         <p>Bad: {this.state.bad}</p>
-        <p>Total: value</p>
-        <p>Positive feedback: value %</p>
+        <p>Total: {this.countTotalFeedback()}</p>
+        <p>Positive feedback: {this.countPositiveFeedbackPercentage()} %</p>
       </div>
     );
   }
