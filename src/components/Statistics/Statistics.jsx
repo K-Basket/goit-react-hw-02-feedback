@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 
-export class Feedback extends Component {
+export class Statistics extends Component {
   state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+    good: this.props.good,
+    neutral: this.props.neutral,
+    bad: this.props.bad,
   };
 
   handleIncrement = evt => {
-    // console.log(evt.target.dataset.action);
-
     if (evt.target.dataset.action === 'good') {
       return this.setState(prevState => ({
         good: prevState.good + 1,
@@ -28,7 +26,7 @@ export class Feedback extends Component {
   };
 
   countTotalFeedback = () => {
-    let sum = 0;
+    let sum = this.props.total;
     Object.values(this.state).map(el => (sum += el));
     return sum;
   };
@@ -39,15 +37,13 @@ export class Feedback extends Component {
     let percentage = Math.round((valueGood / totalFeedback) * 100);
 
     if (!totalFeedback) {
-      return (percentage = 0);
+      return this.props.positivePercentage;
     }
 
     return percentage;
   };
 
   render() {
-    this.countPositiveFeedbackPercentage();
-
     return (
       <div>
         <h1>Please leave Feedback</h1>
@@ -69,7 +65,7 @@ export class Feedback extends Component {
         <p>Neutral: {this.state.neutral}</p>
         <p>Bad: {this.state.bad}</p>
         <p>Total: {this.countTotalFeedback()}</p>
-        <p>Positive feedback: {this.countPositiveFeedbackPercentage()} %</p>
+        <p>Positive feedback: {this.countPositiveFeedbackPercentage()}%</p>
       </div>
     );
   }
