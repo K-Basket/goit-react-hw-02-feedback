@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FeedbackOptions } from 'components/FeedbackOptions';
 
 export class Statistics extends Component {
   state = {
@@ -7,7 +8,7 @@ export class Statistics extends Component {
     bad: this.props.bad,
   };
 
-  handleIncrement = evt => {
+  onLeaveFeedback = evt => {
     if (evt.target.dataset.action === 'good') {
       return this.setState(prevState => ({
         good: prevState.good + 1,
@@ -47,19 +48,9 @@ export class Statistics extends Component {
     return (
       <div>
         <h1>Please leave Feedback</h1>
-        <button onClick={this.handleIncrement} type="button" data-action="good">
-          Good
-        </button>
-        <button
-          onClick={this.handleIncrement}
-          type="button"
-          data-action="neutral"
-        >
-          Neutral
-        </button>
-        <button onClick={this.handleIncrement} type="button" data-action="bad">
-          Bad
-        </button>
+
+        <FeedbackOptions onLeaveFeedback={this.onLeaveFeedback} />
+
         <h2>Statistics</h2>
         <p>Good: {this.state.good}</p>
         <p>Neutral: {this.state.neutral}</p>
