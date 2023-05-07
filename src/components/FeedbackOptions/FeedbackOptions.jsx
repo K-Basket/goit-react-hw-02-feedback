@@ -1,16 +1,20 @@
-// import css from './FeedbackOptions.module.css'
-export function FeedbackOptions({ onLeaveFeedback }) {
+import css from './FeedbackOptions.module.css';
+export function FeedbackOptions(props) {
+  const { options, onLeaveFeedback } = props;
+
   return (
-    <div>
-      <button onClick={onLeaveFeedback} type="button" data-action="good">
-        Good
-      </button>
-      <button onClick={onLeaveFeedback} type="button" data-action="neutral">
-        Neutral
-      </button>
-      <button onClick={onLeaveFeedback} type="button" data-action="bad">
-        Bad
-      </button>
+    <div className={css.btnWrapp}>
+      {options.map(option => (
+        <button
+          key={option}
+          className={css.btn}
+          type="button"
+          data-action={option}
+          onClick={onLeaveFeedback}
+        >
+          {option}
+        </button>
+      ))}
     </div>
   );
 }
