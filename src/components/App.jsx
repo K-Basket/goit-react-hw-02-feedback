@@ -12,21 +12,27 @@ export class App extends Component {
   };
 
   onLeaveFeedback = evt => {
-    if (evt.target.dataset.action === 'good') {
-      return this.setState(prevState => ({
-        good: prevState.good + 1,
-      }));
-    }
-
-    if (evt.target.dataset.action === 'neutral') {
-      return this.setState(prevState => ({
-        neutral: prevState.neutral + 1,
-      }));
-    }
+    const name = evt.target.dataset.action;
 
     this.setState(prevState => ({
-      bad: prevState.bad + 1,
+      [name]: prevState[name] + 1,
     }));
+
+    // if (evt.target.dataset.action === 'good') {
+    //   return this.setState(prevState => ({
+    //     good: prevState.good + 1,
+    //   }));
+    // }
+
+    // if (evt.target.dataset.action === 'neutral') {
+    //   return this.setState(prevState => ({
+    //     neutral: prevState.neutral + 1,
+    //   }));
+    // }
+
+    // this.setState(prevState => ({
+    //   bad: prevState.bad + 1,
+    // }));
   };
 
   countTotalFeedback = () => {
